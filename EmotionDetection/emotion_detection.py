@@ -17,5 +17,17 @@ def emotion_detector(text_to_analyse):
     input_json = { "raw_document": { "text": text_to_analyse } }
     # POST request to the API 
     response = requests.post(URL, json = input_json, headers=API_headers)
-    # return text attribute from response object as noted in step 3.
-    return response.text
+    # return text attribute from response as json with only emotions and scores.
+    response_json = json.loads(response.text)
+    emotions = response_json['emotionPredictions'][0]['emotion']
+    # retrieve dominant emotion
+    dominant_emotion = max(emotions, key=emotions.get) 
+    # create ouput
+    task3_output = {} 
+    task3_output['anger'] = emotions['anger'] 
+    task3_output['disgust'] = emotions['disgust']
+    task3_output['fear'] = emotions['fear']
+    task3_output['joy'] = emotions['joy']
+    task3_output['sadness'] = emotions['sadness']
+    task3_output['dominant_emotion'] = dominant_emotion
+    return task3_output
