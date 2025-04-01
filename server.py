@@ -8,10 +8,10 @@ app = Flask("Emotion Detector")
 
 @app.route("/emotionDetector")
 def em_detector():
-    ''' Receives text from the HTML interface and runs emotion detection analysis using emotion_detector(). '''
-    
+    ''' Receives text from the HTML interface and runs 
+    emotion detection analysis using emotion_detector(). '''
     text_to_analyze = request.args.get('textToAnalyze') # retrieve
-    
+
     response = emotion_detector(text_to_analyze) # pass on to function
     if response['dominant_emotion'] == 'None':
         return 'Invalid text! Please try again'
